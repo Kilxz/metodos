@@ -20,16 +20,21 @@ iterMax = input("Ingrese maxima cantidad de iteraciones: ");
 inicio = 0;
 
 stop = 0;
-iter = 0;
+i = 0;
 while stop == 0
-  iter = iter + 1;
+  i = i + 1;
   Xv(1) = X(1);
   Xv(2) = X(2);
   Xv(3) = X(3);
-  X(1) = (B(1) - A(1,2) * X(2) - A(1,3) * X(3)) * (1/ A(1,1));
-  X(2) = (B(2) - A(2,1) * X(1) - A(2,3) * X(3)) * (1/ A(2,2));
-  X(3) = (B(3) - A(3,1) * X(1) - A(3,2) * X(2)) * (1/ A(3,3));
-
+  for i = 1: 3
+    sum = 0;
+    for j = 1:3
+      if (j != i)
+        sum = sum + A(i, j) * Xv(j);
+      endif
+    endfor
+  X(i) = (B(i) - sum) / A(i, i);
+  endfor
   if i != 1
     for i = 1: 3
       error(i) = (abs(X(i) - Xv(i))) / abs(X(i));
@@ -45,13 +50,11 @@ while stop == 0
     endif
   endif
 
-  if iter > iterMax
+  if i > iterMax
     stop = 1;
   endif
 endwhile
 
 disp("El vector x resultante es igual a: ")
 disp(X)
-disp("Con una cantidad de iteraciones de: ")
-disp(iter)
 endfunction
