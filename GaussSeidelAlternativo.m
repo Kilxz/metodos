@@ -34,7 +34,11 @@ for i = 1: n
 endfor
 
 for i = 1: n
-  D(i, i) = ( 1 / D(i, i));
+  if D(i, i) != 0
+    D(i, i) = ( 1 / D(i, i));
+  else
+    D(i, i) = 0;
+  endif
 endfor
 
 %B es la matriz T
@@ -68,21 +72,23 @@ stop = 0;
 iter = 0;
 while stop == 0
   iter = iter + 1;
-  for i = 1: n
-    Xv(i) = X(i);
-  endfor
-  
-  for i = 1: n
-    if i != 1
-      X(i) = 0
+  Xv = X;
+
+  for i = 1 : n
+    if i == 1
+      X(i) = 0;
       for j = 1: n
-        X(i) = X(i) + Ti(i, j) * X(j) + Ts(i, j) * Xv(j)
+        X(i) = X(i) + Ts(i, j) * Xv(j);
       endfor
-        X(i) = X(i) + c(i)
+      X(i) = X(i) + c(i);
     else
+      Xn = X;
+      X(i) = 0;
       for j = 1: n
-        X(i) = X(i) + Ts(i, j) * Xv(j)
+        X(i) = X(i) + Ti(i, j) * Xn(j) + Ts(i, j) * Xv(j);
       endfor
+      X(i) = X(i) + c(i);
+      Xv = Xn;
     endif
   endfor
 
