@@ -1,4 +1,4 @@
-function Jacobi
+function JacobiSegundaVersion
   A(1,1) = -3;
   A(1,2) = 1;
   A(1,3) = -2;
@@ -20,9 +20,9 @@ iterMax = input("Ingrese maxima cantidad de iteraciones: ");
 inicio = 0;
 
 stop = 0;
-i = 0;
+iter = 0;
 while stop == 0
-  i = i + 1;
+  iter = iter + 1;
   Xv(1) = X(1);
   Xv(2) = X(2);
   Xv(3) = X(3);
@@ -30,11 +30,12 @@ while stop == 0
     sum = 0;
     for j = 1:3
       if (j != i)
-        sum = sum + A(i, j) * Xv(j);
+        sum = sum + A(i, j) * X(j);
       endif
     endfor
-  X(i) = (B(i) - sum) / A(i, i);
+   X(i) = (B(i) - sum) / A(i, i);
   endfor
+
   if i != 1
     for i = 1: 3
       error(i) = (abs(X(i) - Xv(i))) / abs(X(i));
@@ -50,11 +51,13 @@ while stop == 0
     endif
   endif
 
-  if i > iterMax
+  if iter > iterMax
     stop = 1;
   endif
 endwhile
 
 disp("El vector x resultante es igual a: ")
 disp(X)
+disp("Con una cantidad de iteraciones de: ")
+disp(iter)
 endfunction

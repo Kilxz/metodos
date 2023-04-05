@@ -21,6 +21,7 @@ for i = 1: n
   b(i) = input("Ingrese valor del elemento de b: ");
 endfor
 
+B = zeros(n);
 for i = 1: n
   for j = 1: n
     if j == i
@@ -48,18 +49,21 @@ for i = 1: n
   endfor
 endfor
 
+disp(B)
 %Defino Ti y Ts
+Ts = zeros(n);
+Ti = zeros(n);
 for i = 1: n
   for j = 1: n
     if i > j
-      Ti(i, j) = A(i, j)
-      Ts(i, j) = 0
+      Ti(i, j) = B(i, j);
+      Ts(i, j) = 0;
     elseif j > i
-      Ts(i, j) = A(i, j)
-      Ti(i, j) = 0
+      Ts(i, j) = B(i, j);
+      Ti(i, j) = 0;
     else
-      Ts(i, j) = 0
-      Ti(i, j) = 0
+      Ts(i, j) = 0;
+      Ti(i, j) = 0;
     endif
   endfor
 endfor
@@ -70,9 +74,12 @@ endfor
 
 stop = 0;
 iter = 0;
+
 while stop == 0
+
   iter = iter + 1;
   Xv = X;
+  Xa = X;
 
   for i = 1 : n
     if i == 1
@@ -96,7 +103,8 @@ while stop == 0
     stop = 1;
   endif
   for i= 1: n
-    Xdif(i) = X(i) - Xv(i);
+    Xdif(i) = X(i) - Xa(i);
+
   endfor
   norma = normaCuadratica(Xdif, n);
   if norma <= tol

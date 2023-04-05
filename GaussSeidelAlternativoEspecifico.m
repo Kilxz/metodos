@@ -52,10 +52,10 @@ endfor
 for i = 1: n
   for j = 1: n
     if i > j
-      Ti(i, j) = A(i, j);
+      Ti(i, j) = B(i, j);
       Ts(i, j) = 0;
     elseif j > i
-      Ts(i, j) = A(i, j);
+      Ts(i, j) = B(i, j);
       Ti(i, j) = 0;
     else
       Ts(i, j) = 0;

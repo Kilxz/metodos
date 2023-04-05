@@ -1,6 +1,8 @@
 function metodoPotencia
+
   n = input("Ingrese la cantidad de filas de la matriz: ");
-  tol = input("Ingrese tolerancia deseada: ")
+  tol = input("Ingrese tolerancia deseada: ");
+  iterMax = input("Ingrese cantidad maxima de iteraciones deseada: ");
   A = pedirMatriz(n);
   X = pedirVector(n);
 
@@ -8,7 +10,7 @@ function metodoPotencia
   iter = 0;
   while stop == 0
     iter = iter + 1;
-    norma = normacuadratica(X, n);
+    norma = normainfinito(X, n);
     for i = 1: n
       X(i) = X(i) / norma;
     endfor
@@ -23,12 +25,20 @@ function metodoPotencia
     for i = 1: n
       a(i) = Xn(i) / X(i);
     endfor
-    X = Xn;
-    convergencia = normacuadratica(transpose(Xn) * Xn, n) / normacuadratica(transpose(Xn) * X, n);
-    if iter >= 50
+
+    convergencia = abs((Xn * transpose(Xn)) / (X * transpose(X)));
+    for i = 1: n
+      Xdif(i) = Xn(i) - X(i);
+    endfor
+    norma = normacuadratica(Xdif, n);
+    if norma <= tol
       stop = 1;
     endif
-    if convergencia <= tol
+    X = Xn;
+    if iter >= iterMax
+      stop = 1;
+    endif
+    if convergencia == 1
       stop = 1;
     endif
 
@@ -38,7 +48,7 @@ function metodoPotencia
   disp(X)
   disp("Con una cantidad de iteraciones de: ")
   disp(iter)
-
+  disp(a)
 endfunction
 
 
@@ -58,24 +68,24 @@ function B = pedirVector(n)
   endfor
 endfunction
 
-function vector = normalizar(vector, n)
-  bigger = vector(1);
+function norma = normainfinito(vector, n)
+  bigger = abs(vector(1));
   for i = 1 : n
-    if bigger < vector(i)
-      bigger = vector(i);
+    if bigger < abs(vector(i))
+      bigger = abs(vector(i));
     endif
   endfor
-
-  for i = 1: n
-    vector(i) = vector(i) / bigger;
-  endfor
+  norma = bigger;
   return
 endfunction
 
-function normacuadratica = normacuadratica(X, n)
-  normacuadratica = 0;
-  for i = 1: n
-    normacuadratica = normacuadratica + (X(i))^2 ;
-  endfor
-  normacuadratica = sqrt(normacuadratica);
+function norma = normacuadratica(vector, n)
+
+norma = 0;
+for i = 1: n
+  norma = norma + (vector(i))^2;
+endfor
+
+norma = sqrt(norma);
+
 endfunction
