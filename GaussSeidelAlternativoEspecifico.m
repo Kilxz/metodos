@@ -96,12 +96,12 @@ while stop == 0
   endfor
 
   if (iter >= iterMax)
-    stop = 0;
+    stop = 1;
   endif
   for i= 1: n
-    Xdif(i) = X(i) - Xv(i);
+    Xdif(i) = abs(X(i) - Xv(i));
   endfor
-  norma = normaCuadratica(Xdif, n);
+  norma = max(Xdif);
   if norma <= tol
     stop = 1;
   endif

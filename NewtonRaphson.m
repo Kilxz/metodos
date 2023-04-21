@@ -10,16 +10,16 @@ function NewtonRaphson
   rk1 = rk - (fRk / m);
   fRk1 = rk1 - 2^(-rk1);
   iter = iter + 1;
- 
+  disp(rk1)
  %Condiciones de parada
-  if abs(fRk) <= tol
+  if abs(fRk1) <= tol
     stop = 1;
   endif
- 
+
   if iter > 50
     stop = 1;
   endif
-  
+
 % Actualización
   if stop == 0
     rk = rk1;
@@ -27,7 +27,7 @@ function NewtonRaphson
   endwhile
 
 disp("La raíz de la función está en: ")
-disp(rk)
+disp(rk1)
 disp("Con una cantidad de iteraciones de: ")
 disp(iter)
 endfunction

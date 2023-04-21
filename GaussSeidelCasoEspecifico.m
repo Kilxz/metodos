@@ -55,7 +55,7 @@ while stop == 0
     endif
   endif
 
-  if iter > iterMax
+  if iter >= iterMax
     stop = 1;
   endif
 endwhile

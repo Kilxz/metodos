@@ -26,26 +26,21 @@ while stop == 0
   Xv(1) = X(1);
   Xv(2) = X(2);
   Xv(3) = X(3);
-  X(1) = (B(1) - A(1,2) * X(2) - A(1,3) * X(3)) * (1/ A(1,1));
-  X(2) = (B(2) - A(2,1) * X(1) - A(2,3) * X(3)) * (1/ A(2,2));
-  X(3) = (B(3) - A(3,1) * X(1) - A(3,2) * X(2)) * (1/ A(3,3));
+  X(1) = (B(1) - A(1,2) * Xv(2) - A(1,3) * Xv(3)) * (1/ A(1,1));
+  X(2) = (B(2) - A(2,1) * Xv(1) - A(2,3) * Xv(3)) * (1/ A(2,2));
+  X(3) = (B(3) - A(3,1) * Xv(1) - A(3,2) * Xv(2)) * (1/ A(3,3));
 
-  if i != 1
+  if iter != 1
     for i = 1: 3
-      error(i) = (abs(X(i) - Xv(i))) / abs(X(i));
+      error(i) = (X(i) - Xv(i));
     endfor
-    e = error(i);
-    for i = 2: 3
-      if error(i) > e
-        e = error(i);
-      endif
-    endfor
-    if e < tol
+    e = max(error)
+    if abs(e) < tol
       stop = 1;
     endif
   endif
 
-  if iter > iterMax
+  if iter >= iterMax
     stop = 1;
   endif
 endwhile
