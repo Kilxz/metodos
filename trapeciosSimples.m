@@ -1,4 +1,4 @@
-function trapeciosMultiples
+function trapeciosSimples
   x = [0, 0.1, 0.2, 0.3, 0.4];
   y = [1, 7, 4, 3, 5];
   dx = x(2) - x(1);
