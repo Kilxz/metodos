@@ -1,3 +1,4 @@
+%LA VERSIÓN QUE SIRVE ES LA QUE SE LLAMA DIFERENCIACENTRALSISTEMASREPASO
 function diferenciaCentralMatriz
   clc
   y(1, :) = [1; 2; 1]
